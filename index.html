@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Etchy-Sketchy</title>
+    <style>
+      /* Style for the body */
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+      }
+
+      /* Style for the wrapper div */
+      #wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 16px;
+        border: 1px solid black;
+      }
+
+      /* Style for the title */
+      h1 {
+        text-align: center;
+      }
+
+      /* Style for the container div */
+      #container {
+        display: flex;
+        flex-wrap: wrap;
+        width: 400px;
+        height: 400px;
+        border: 1px solid black;
+        overflow: hidden;
+        padding: 0;
+        margin: 16px 0 0 0;
+      }
+
+      /* Style for the grid squares */
+      .square {
+        border: 1px solid black;
+        box-sizing: border-box;
+        background-color: white;
+      }
+
+      /* Style for the grid squares on hover */
+      .square:hover {
+        background-color: black;
+      }
+
+      /* Style for the range input */
+      input[type="range"] {
+        width: 400px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="wrapper">
+      <h1>Etchy-Sketchy</h1>
+      <div id="container"></div>
+      <label for="grid-size">Adjust grid size:</label>
+      <input type="range" id="grid-size" value="16" min="1" max="100" step="1">
+      <div id="grid-size-value"></div>
+    </div>
+
+    <script>
+      // Get the container div, grid size input, and grid size value element
+      const container = document.getElementById("container");
+      const gridSizeInput = document.getElementById("grid-size");
+      const gridSizeValue = document.getElementById("grid-size-value");
+
+      // Create the initial grid with the default size of 16x16
+      createGrid();
+
+      function createGrid() {
+        // Clear the existing grid squares
+        container.innerHTML = "";
+
+        // Get the grid size from the range input element
+        const gridSize = parseInt(gridSizeInput.value);
+
+        // Calculate the size of each square based on the number of squares in the container
+        const squareSize = 400 / gridSize;
+
+        // Set the --grid-size and --square-size CSS variables
+        container.style.setProperty("--grid-size", gridSize);
+        container.style.setProperty("--square-size", `${squareSize}px`);
+
+        // Display the grid size value in real time
+        gridSizeValue.textContent = `Grid size: ${gridSize}x${gridSize}`;
+
+        // Create the grid squares
+        for (let i = 0; i < gridSize * gridSize; i++) {
+          const square = document.createElement("div");
+          square.classList.add("square");
+          square.style.width = `${squareSize}px`;
+          square.style.height = `${squareSize}px`;
+          container.appendChild(square);
+        }
+      }
+
+      // Update the grid when the range input is changed
+      gridSizeInput.addEventListener("input", createGrid);
+    </script>
+  </body>
+</html>
