@@ -49,7 +49,7 @@
 
       /* Style for the grid squares on hover */
       .square:hover {
-        background-color: black;
+        background-color: rgb(var(--r), var(--g), var(--b));
       }
 
       /* Style for the range input */
@@ -99,12 +99,27 @@
           square.classList.add("square");
           square.style.width = `${squareSize}px`;
           square.style.height = `${squareSize}px`;
+          square.style.setProperty("--r", "255");
+          square.style.setProperty("--g", "255");
+          square.style.setProperty("--b", "255");
           container.appendChild(square);
         }
       }
 
       // Update the grid when the range input is changed
       gridSizeInput.addEventListener("input", createGrid);
+
+      // Set a random RGB color to the grid square when the mouse passes over it
+      container.addEventListener("mouseover", function(event) {
+        if (event.target.classList.contains("square")) {
+          const r = Math.floor(Math.random() * 256);
+          const g = Math.floor(Math.random() * 256);
+          const b = Math.floor(Math.random() * 256);
+          event.target.style.setProperty("--r", r);
+          event.target.style.setProperty("--g", g);
+          event.target.style.setProperty("--b", b);
+        }
+      });
     </script>
   </body>
 </html>
