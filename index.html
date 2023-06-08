@@ -48,7 +48,7 @@
       }
 
       /* Style for the grid squares on hover */
-      .square:hover {
+      .square:hover, .colored {
         background-color: rgb(var(--r), var(--g), var(--b));
       }
 
@@ -118,6 +118,7 @@
           event.target.style.setProperty("--r", r);
           event.target.style.setProperty("--g", g);
           event.target.style.setProperty("--b", b);
+          event.target.classList.add("colored");
         }
       });
     </script>
